@@ -1,5 +1,6 @@
 import React from "react";
 import "../static/header.css";
+import logo from "../static/images/GPM_RI_logo1.svg";
 
 const Header = ({
   enterCheckout,
@@ -12,7 +13,7 @@ const Header = ({
   };
   return (
     <div id="header-container">
-      <h1>roundIn</h1>
+      <img id="logo" src={logo} alt="logo" />
       {cartItems > 0 && enterCheckout === false ? (
         <div id="cart">
           <h4> Items: {cartItems}</h4>

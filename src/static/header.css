@@ -11,3 +11,7 @@ h1 {
   flex-flow: row wrap;
   justify-content: space-between;
 }
+
+#logo {
+  width: 150px;
+}
