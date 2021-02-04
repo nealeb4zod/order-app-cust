@@ -1,0 +1,13 @@
+h1 {
+  margin: 20px;
+}
+
+#cart {
+  margin: 20px;
+}
+
+#header-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}

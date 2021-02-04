@@ -1,5 +1,6 @@
 import React from "react";
 import MenuDetails from "../components/menu-components/MenuDetails";
+import "../static/list.css";
 
 const MenuContainer = ({
   selectedMenu,

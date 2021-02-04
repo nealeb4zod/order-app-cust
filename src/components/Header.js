@@ -1,5 +1,5 @@
 import React from "react";
-import Cart from "./Cart";
+import "../static/header.css";
 
 const Header = ({
   enterCheckout,
@@ -11,20 +11,18 @@ const Header = ({
     updateEnterCheckout();
   };
   return (
-    <span>
+    <div id="header-container">
       <h1>roundIn</h1>
       {cartItems > 0 && enterCheckout === false ? (
-        <>
-          <h4>
-            {" "}
-            Items: {cartItems} £{(cartTotal / 100).toFixed(2)}
-          </h4>
+        <div id="cart">
+          <h4> Items: {cartItems}</h4>
+          <h4>Total: £{(cartTotal / 100).toFixed(2)}</h4>
           <button type="button" onClick={handleCheckout}>
             Checkout
           </button>
-        </>
+        </div>
       ) : null}
-    </span>
+    </div>
   );
 };
 

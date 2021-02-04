@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../static/venue-bar.css";
 
 const VenueBar = ({ venues, onUpdateVenue, customers, onUpdateCustomer }) => {
   const [stateSelectedVenue, setStateSelectedVenue] = useState(venues[0]);
@@ -37,20 +38,21 @@ const VenueBar = ({ venues, onUpdateVenue, customers, onUpdateCustomer }) => {
   };
   return (
     <>
-      <form onSubmit={handleFormSubmit}>
-        <label>
-          <label>
-            <select name="index" onChange={handleCustomerChange}>
-              <option>Select a Customer...</option>
-              {selectCustomer}
-            </select>
-          </label>
-          <select onChange={handleChange}>
+      <div id="form-container">
+        <form id="venue-bar-form" onSubmit={handleFormSubmit}>
+          <h2>Login:</h2>
+          <label htmlFor="name">Customer:</label>
+          <select name="index" onChange={handleCustomerChange}>
+            <option>Select a Customer...</option>
+            {selectCustomer}
+          </select>
+          <label htmlFor="venue">Venue:</label>
+          <select name="venue" onChange={handleChange}>
             <option>Please select a venue...</option> {selectVenue}
           </select>
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
+          <input type="submit" value="Login" />
+        </form>
+      </div>
     </>
   );
 };

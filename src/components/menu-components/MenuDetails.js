@@ -10,19 +10,26 @@ const MenuDetails = ({
 }) => {
   return (
     <div className="details-box">
-      {
-        <h3>
-          Hello {selectedCustomer.name} <br />
-          Welcome to {selectedMenu.venues[0].name}.
-        </h3>
-      }
+      <div id="greeting">
+        {
+          <h3>
+            Hello {selectedCustomer.name} <br />
+            Welcome to {selectedMenu.venues[0].name}.
+          </h3>
+        }
+      </div>
       <h3>{selectedMenu.name}</h3>
 
       <DrinksList
+        className="list"
         drinks={selectedMenu.drinks}
         addDrinkToCart={addDrinkToCart}
       />
-      <FoodList foods={selectedMenu.foods} addFoodToCart={addFoodToCart} />
+      <FoodList
+        className="list"
+        foods={selectedMenu.foods}
+        addFoodToCart={addFoodToCart}
+      />
     </div>
   );
 };

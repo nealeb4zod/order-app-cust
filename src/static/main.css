@@ -1,4 +1,10 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
 body {
-  background-color: #e6edf5;
+  background-color: #f3f3f3;
   color: #0966c2;
 }

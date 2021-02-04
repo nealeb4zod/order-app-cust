@@ -6,7 +6,7 @@ const DrinksList = ({ drinks, addDrinkToCart }) => {
     <>
       <div className="menu-list-box">
         <h4>Drinks</h4>
-        <ol>
+        <ol className="list">
           {drinks.map((drink, index) => {
             return (
               <Drink

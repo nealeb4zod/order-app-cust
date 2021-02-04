@@ -1,0 +1,21 @@
+#venue-bar-form {
+  display: flex;
+  flex-flow: column wrap;
+  box-sizing: border-box;
+  margin: auto;
+  width: 70%;
+  border-radius: 3px;
+  box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+}
+
+#venue-bar-form > select,
+input {
+  margin-bottom: 20px;
+}
+
+#venue-bar-form > label,
+h2 {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
