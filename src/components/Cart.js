@@ -67,8 +67,8 @@ const Cart = ({
       {items > 0 ? (
         <>
           <form onSubmit={handleCheckout}>
-            <h3>Items in cart: {items.length}</h3>
-            <h2>Total: £{total}</h2>
+            <h3>Items in cart: {items}</h3>
+            <h2>Total: £{(total / 100).toFixed(2)}</h2>
             <label>
               Customer Name:{" "}
               <select name="index" onChange={handleCustomerChange}>
