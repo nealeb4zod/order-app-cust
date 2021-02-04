@@ -2,26 +2,29 @@ import React from "react";
 import Cart from "./Cart";
 
 const Header = ({
-  foodCart,
-  drinkCart,
-  checkoutCart,
-  customers,
-  selectedVenue,
+  enterCheckout,
+  cartTotal,
+  cartItems,
+  updateEnterCheckout,
 }) => {
-  const items = drinkCart.length + foodCart.length;
+  const handleCheckout = (e) => {
+    updateEnterCheckout();
+  };
   return (
-    <>
+    <span>
       <h1>roundIn</h1>
-      {items > 0 ? (
-        <Cart
-          foodCart={foodCart}
-          drinkCart={drinkCart}
-          checkoutCart={checkoutCart}
-          customers={customers}
-          selectedVenue={selectedVenue}
-        />
+      {cartItems > 0 && enterCheckout === false ? (
+        <>
+          <h4>
+            {" "}
+            Items: {cartItems} £{(cartTotal / 100).toFixed(2)}
+          </h4>
+          <button type="button" onClick={handleCheckout}>
+            Checkout
+          </button>
+        </>
       ) : null}
-    </>
+    </span>
   );
 };
 

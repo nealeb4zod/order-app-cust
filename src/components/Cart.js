@@ -4,7 +4,7 @@ const Cart = ({
   foodCart,
   drinkCart,
   checkoutCart,
-  customers,
+  selectedCustomer,
   selectedVenue,
 }) => {
   const [order, setOrder] = useState({
@@ -13,7 +13,7 @@ const Cart = ({
     drinks: [],
     collectionDate: "",
     collectionTime: "",
-    customer: {},
+    customer: { ...selectedCustomer },
     collected: false,
   });
 
@@ -22,21 +22,6 @@ const Cart = ({
   foodCart.forEach((item) => (total += item.price));
 
   const items = drinkCart.length + foodCart.length;
-
-  const selectCustomer = customers.map((customer, index) => {
-    return (
-      <option key={index} value={index}>
-        {customer.name}
-      </option>
-    );
-  });
-
-  const handleCustomerChange = (event) => {
-    const selectedCustomer = customers[event.target.value];
-    let copiedOrder = { ...order };
-    copiedOrder.customer = selectedCustomer;
-    setOrder(copiedOrder);
-  };
 
   const handleTimeChange = (event) => {
     let propertyName = event.target.name;
@@ -57,7 +42,7 @@ const Cart = ({
       drinks: [],
       collectionDate: "",
       collectionTime: "",
-      customer: {},
+      customer: { ...selectedCustomer },
       collected: false,
     });
   };
@@ -69,13 +54,7 @@ const Cart = ({
           <form onSubmit={handleCheckout}>
             <h3>Items in cart: {items}</h3>
             <h2>Total: £{(total / 100).toFixed(2)}</h2>
-            <label>
-              Customer Name:{" "}
-              <select name="index" onChange={handleCustomerChange}>
-                <option>Select a Customer...</option>
-                {selectCustomer}
-              </select>
-            </label>
+
             <br />
             <label>
               Collection Time:{" "}

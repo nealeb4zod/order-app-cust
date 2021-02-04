@@ -1,22 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useDidMountEffect } from "../hooks/useDidMountEffect";
-import { useInterval } from "../hooks/useInterval";
 import MenuContainer from "./MenuContainer";
 import Header from "../components/Header";
-import NavBar from "../components/NavBar";
+import Cart from "../components/Cart";
 import ErrorPage from "../components/ErrorPage";
 import VenueBar from "../components/VenueBar";
 import Request from "../helpers/Request";
 
+import "../static/main.css";
+
 function MainContainer() {
   const [venues, setVenues] = useState([]);
   const [selectedVenue, setSelectedVenue] = useState();
-  const [menus, setMenus] = useState([]);
   const [selectedMenu, setSelectedMenu] = useState();
   const [drinkCart, setDrinkCart] = useState([]);
   const [foodCart, setFoodCart] = useState([]);
   const [customers, setCustomers] = useState([]);
+  const [selectedCustomer, setSelectedCustomer] = useState();
+  const [cartItems, setCartItems] = useState();
+  const [cartTotal, setCartTotal] = useState();
+  const [enterCheckout, setEnterCheckout] = useState(false);
 
   useEffect(() => {
     fetch("http://localhost:8080/venues")
@@ -44,8 +48,28 @@ function MainContainer() {
       });
   }, [selectedVenue]);
 
+  useDidMountEffect(() => {
+    const items = drinkCart.length + foodCart.length;
+    setCartItems(items);
+  }, [drinkCart, foodCart]);
+
+  useDidMountEffect(() => {
+    let total = 0;
+    drinkCart.forEach((item) => (total += item.price));
+    foodCart.forEach((item) => (total += item.price));
+    setCartTotal(total);
+  }, [cartItems]);
+
+  const updateEnterCheckout = () => {
+    setEnterCheckout(true);
+  };
+
   const onUpdateVenue = (venue) => {
     setSelectedVenue(venue);
+  };
+
+  const onUpdateCustomer = (customer) => {
+    setSelectedCustomer(customer);
   };
 
   const addDrinkToCart = (itemIndex) => {
@@ -63,34 +87,48 @@ function MainContainer() {
   const checkoutCart = (order) => {
     const request = new Request();
     request.post("http://localhost:8080/orders", order);
-    setDrinkCart([]);
-    setFoodCart([]);
+    window.location.reload();
   };
 
   return (
     <Router>
       <>
         <Header
-          drinkCart={drinkCart}
-          foodCart={foodCart}
-          checkoutCart={checkoutCart}
-          customers={customers}
-          selectedVenue={selectedVenue}
+          cartItems={cartItems}
+          cartTotal={cartTotal}
+          enterCheckout={enterCheckout}
+          updateEnterCheckout={updateEnterCheckout}
         />
-        <VenueBar
-          venues={venues}
-          onUpdateVenue={onUpdateVenue}
-          selectedVenue={selectedVenue}
-        />
+        {!selectedCustomer && !selectedVenue ? (
+          <VenueBar
+            venues={venues}
+            onUpdateVenue={onUpdateVenue}
+            selectedVenue={selectedVenue}
+            customers={customers}
+            onUpdateCustomer={onUpdateCustomer}
+          />
+        ) : null}
+        {enterCheckout === true ? (
+          <Cart
+            cartTotal={cartTotal}
+            cartItems={cartItems}
+            foodCart={foodCart}
+            drinkCart={drinkCart}
+            checkoutCart={checkoutCart}
+            selectedCustomer={selectedCustomer}
+            selectedVenue={selectedVenue}
+          />
+        ) : null}
         <Switch>
           <Route
             path="/"
             render={() => (
               <MenuContainer
-                menus={menus}
+                selectedCustomer={selectedCustomer}
                 selectedMenu={selectedMenu}
                 addDrinkToCart={addDrinkToCart}
                 addFoodToCart={addFoodToCart}
+                enterCheckout={enterCheckout}
               />
             )}
           />

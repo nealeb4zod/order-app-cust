@@ -1,14 +1,21 @@
 import React from "react";
 import MenuDetails from "../components/menu-components/MenuDetails";
 
-const MenuContainer = ({ selectedMenu, addDrinkToCart, addFoodToCart }) => {
+const MenuContainer = ({
+  selectedMenu,
+  addDrinkToCart,
+  addFoodToCart,
+  selectedCustomer,
+  enterCheckout,
+}) => {
   return (
     <>
-      {selectedMenu ? (
+      {selectedMenu && enterCheckout === false ? (
         <MenuDetails
           selectedMenu={selectedMenu}
           addDrinkToCart={addDrinkToCart}
           addFoodToCart={addFoodToCart}
+          selectedCustomer={selectedCustomer}
         />
       ) : null}
     </>
